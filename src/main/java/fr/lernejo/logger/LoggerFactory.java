@@ -1,7 +1,13 @@
 package fr.lernejo.logger;
 
 public class LoggerFactory {
-    public static Logger getLogger(String name) {
-        return new ConsoleLogger();
+    private static final Logger logger = new ConsoleLogger();
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public static Logger getContextualLogger(Class<?> clazz) {
+        return new ContextualLogger(clazz.getSimpleName(), logger);
     }
 }

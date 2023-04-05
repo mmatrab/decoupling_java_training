@@ -4,7 +4,7 @@ import fr.lernejo.logger.Logger;
 import fr.lernejo.logger.LoggerFactory;
 
 public class Simulation {
-    private final Logger logger = LoggerFactory.getLogger("simulation");
+    private final Logger logger = LoggerFactory.getContextualLogger(Simulation.class);
     private final Player player;  //TODO add variable type
     private long numberToGuess; //TODO add variable type
 
