@@ -30,10 +30,22 @@ public class Simulation {
         }
     }
 
-    public void loopUntilPlayerSucceed() {
+    public boolean loopUntilPlayerSucceed(long maxIterations) {
+        long startTime = System.currentTimeMillis();
         boolean success = false;
-        while(!success){
-            success = nextRound();
+        for (long i = 1; i <= maxIterations; i++) {
+            if (nextRound()) {
+                success = true;
+                break;
+            }
         }
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        logger.log("Game duration: " + String.format("%02d:%02d.%03d", duration / 60000, (duration / 1000) % 60, duration % 1000));
+        if (!success) {
+            logger.log("The player did not find the number " + numberToGuess + " within the limit of " + maxIterations + " iterations.");
+        }
+        logger.log("You won !");
+        return success;
     }
 }
