@@ -4,19 +4,25 @@ import fr.lernejo.logger.Logger;
 import fr.lernejo.logger.LoggerFactory;
 
 import java.util.Scanner;
+
 public class HumanPlayer implements Player {
-    private static final Logger logger = LoggerFactory.getLogger();
+    private static final Logger logger = LoggerFactory.getContextualLogger(HumanPlayer.class);
     private final Scanner scanner = new Scanner(System.in);
+
     @Override
     public long askNextGuess() {
-        logger.log("Asking user for next guess");
-        System.out.println("Enter your next guess:");
-        return scanner.nextLong();
+        logger.log("Enter your guess:");
+        long guess = scanner.nextLong();
+        logger.log("Player guessed: " + guess);
+        return guess;
     }
 
     @Override
-    public void respond(boolean lowerOrGreater) {
-        logger.log("Informing user that the previous guess was " + (lowerOrGreater ? "lower" : "greater"));
-        System.out.println("Your guess was " + (lowerOrGreater ? "too high" : "too low"));
+    public void respond(boolean lower) {
+        if (lower) {
+            logger.log("The number to guess is lower!");
+        } else {
+            logger.log("The number to guess is greater!");
+        }
     }
 }
